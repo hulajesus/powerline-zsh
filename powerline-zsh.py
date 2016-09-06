@@ -28,8 +28,8 @@ class Color:
 
     REPO_CLEAN_BG = 148  # a light green color
     REPO_CLEAN_FG = 0  # black
-    REPO_DIRTY_BG = 161  # pink/red
-    REPO_DIRTY_FG = 15  # white
+    REPO_DIRTY_BG = 214  # pink/red
+    REPO_DIRTY_FG = 0  # white
 
     CMD_PASSED_BG = 236
     CMD_PASSED_FG = 15
@@ -124,9 +124,9 @@ def add_cwd_segment(powerline, cwd, maxdepth, cwd_only=False, hostname=False):
     if cwd[0] == '/':
         cwd = cwd[1:]
 
-    names = cwd.split('/')
-    if len(names) > maxdepth:
-        names = names[:2] + ['⋯ '] + names[2 - maxdepth:]
+    names = cwd.split('/')[-1:]
+   # if len(names) > maxdepth:
+   #    names = names[:2] + ['⋯ '] + names[2 - maxdepth:]
 
     if hostname:
         powerline.append(Segment(powerline, ' %m ' , Color.CWD_FG, Color.PATH_BG, powerline.separator_thin, Color.SEPARATOR_FG))
@@ -337,7 +337,7 @@ if __name__ == '__main__':
     p = Powerline(mode=args.m)
     cwd = get_valid_cwd()
     add_virtual_env_segment(p, cwd)
-    add_cwd_segment(p, cwd, 5, args.cwd_only, args.hostname)
+    add_cwd_segment(p, cwd, 0, args.cwd_only, args.hostname)
     add_repo_segment(p, cwd)
     add_root_indicator(p, args.prev_error)
     if sys.version_info[0] < 3:
